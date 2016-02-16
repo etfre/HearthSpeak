@@ -1,6 +1,0 @@
-C:\Users\evan\modules\net\HearthSpeak\HearthSpeak\bin\Debug\HearthSpeak.exe.config
-C:\Users\evan\modules\net\HearthSpeak\HearthSpeak\bin\Debug\HearthSpeak.exe
-C:\Users\evan\modules\net\HearthSpeak\HearthSpeak\bin\Debug\HearthSpeak.pdb
-C:\Users\evan\modules\net\HearthSpeak\HearthSpeak\obj\Debug\HearthSpeak.exe
-C:\Users\evan\modules\net\HearthSpeak\HearthSpeak\obj\Debug\HearthSpeak.pdb
-C:\Users\evan\modules\net\HearthSpeak\HearthSpeak\obj\Debug\HearthSpeak.csprojResolveAssemblyReference.cache
