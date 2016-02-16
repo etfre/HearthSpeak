@@ -50,8 +50,10 @@ namespace HearthSpeak
             SetCursorPos(xpos, ypos);
             int downInt = button == "left" ? MOUSEEVENTF_LEFTDOWN : MOUSEEVENTF_RIGHTDOWN;
             int upInt = button == "left" ? MOUSEEVENTF_LEFTUP : MOUSEEVENTF_RIGHTUP;
+            Thread.Sleep(200);
             mouse_event(downInt, xpos, ypos, 0, 0);
             mouse_event(upInt, xpos, ypos, 0, 0);
+            Thread.Sleep(200);
         }
 
         public static void TypeKeys(string keys)

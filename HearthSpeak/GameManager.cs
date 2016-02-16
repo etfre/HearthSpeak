@@ -11,8 +11,6 @@ namespace HearthSpeak
     class GameManager
     {
         public Dictionary<Regex, Action<List<string>>> ActionMap;
-        public Dictionary<string, int> CardinalMap;
-        private string Numbers;
         private LogFileParser parser;
         private Locator locator;
         private int ClickDelay;
@@ -47,19 +45,6 @@ namespace HearthSpeak
                 [new Regex(@"\Amy collection")] = MyCollection,
                 [new Regex(@"\Adeck [1-9]")] = Deck,
                 [new Regex(@"\A(thank you)|(sorry)|(well played)|(good game)|(oops)|(threaten)|(greetings)")] = Emote,
-            };
-            CardinalMap = new Dictionary<string, int>
-            {
-                ["first"] = 1,
-                ["second"] = 2,
-                ["third"] = 3,
-                ["fourth"] = 4,
-                ["fifth"] = 5,
-                ["sixth"] = 6,
-                ["seventh"] = 7,
-                ["eighth"] = 8,
-                ["ninth"] = 9,
-                ["tenth"] = 10,
             };
         }
 
@@ -124,12 +109,11 @@ namespace HearthSpeak
             int[] destCoords = func(pos);
             InputControl.SetCursorPosition(destCoords[0], 570);
             Thread.Sleep(ClickDelay);
-            InputControl.MouseClick(destCoords);
+            InputControl.MouseClick(destCoords, "left", ClickDelay);
         }
 
         public void HeroPower(List<string> words)
         {
-            Thread.Sleep(ClickDelay);
             InputControl.MouseClick(locator.HeroPower());
         }
 

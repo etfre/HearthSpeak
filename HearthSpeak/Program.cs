@@ -82,9 +82,6 @@ namespace HearthSpeak
                     if (match.Success)
                     {
                         matchedText = match.Groups[0].Value;
-                        // call ActionModule func in new thread
-                        Thread actionThread = new Thread(() => item.Value(matchedText.Split(' ').ToList()));
-                        actionThread.Start();
                         item.Value(matchedText.Split(' ').ToList());
                         words = wordsText.Remove(0, matchedText.Length).Split(' ').ToList();
                         break;
