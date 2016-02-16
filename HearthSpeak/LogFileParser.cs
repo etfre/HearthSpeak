@@ -59,20 +59,11 @@ namespace HearthSpeak
             while (true)
             {
                 var filesToParse = FilesToParse();
-                string line;
                 foreach (var path in filesToParse)
                 {
-                    using (var fs = new FileStream(path, FileMode.Open,
-                                   FileAccess.Read, FileShare.ReadWrite))
-                    using (var streamReader = new StreamReader(fs, Encoding.Default))
-                    {
-                        while ((line = streamReader.ReadLine()) != null)
-                        {
-                            ParseLine(line);
-                        }
-                    }
+                    ParseFile(path);
                 }
-                TruncateNewestFile(filesToParse);
+                ArchiveNewestFile(filesToParse);
                 FriendlyHandCount = NewFriendlyHandCount;
                 FriendlyPlayCount = NewFriendlyPlayCount;
                 OpposingPlayCount = NewOpposingPlayCount;
@@ -81,19 +72,57 @@ namespace HearthSpeak
             }
         }
 
-        private void TruncateNewestFile(List<string> filesToParse)
+        private void ParseFile(string fileName)
+        {
+            string line;
+            using (var fs = new FileStream(fileName, FileMode.Open,
+               FileAccess.Read, FileShare.ReadWrite))
+            using (var streamReader = new StreamReader(fs, Encoding.Default))
+            {
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    ParseLine(line);
+                }
+            }
+        }
+
+        private void ArchiveNewestFile(List<string> filesToParse)
         {
             if (filesToParse.Count == 0) return;
+            string newestPath = filesToParse[filesToParse.Count - 1];
+            string tempPath = newestPath + ".tmp";
             try
             {
-                using (var fs = new FileStream(filesToParse[filesToParse.Count - 1], FileMode.Open,
+                using (var fs = new FileStream(newestPath, FileMode.Open,
                                                FileAccess.Write))
-                    if (fs.Length > 4000000)
-                    {
-                        fs.SetLength(0);
-                    }
+                    if (fs.Length <= 4000000 || newestPath.Contains("archive")) return;
+                System.IO.File.Move(newestPath, tempPath);
             }
-            catch { }
+            catch
+            {
+                return;
+            }
+            System.IO.File.Move(tempPath, GetReplacePath(newestPath));
+        }
+
+        private string GetReplacePath(string path)
+        {
+            string fname = path;
+            string extension = "";
+            int idx = path.LastIndexOf('.');
+            if (idx > -1)
+            {
+                fname = path.Substring(0, idx);
+                extension = path.Substring(idx);
+            }
+            fname += "_archive";
+            int archiveCount = 2;
+            string replacePath = fname + extension;
+            while (File.Exists(replacePath))
+            {
+                replacePath = fname + archiveCount++.ToString() + extension;
+            }
+            return replacePath;
         }
 
         private List<string> FilesToParse()
