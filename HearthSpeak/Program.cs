@@ -37,7 +37,7 @@ namespace HearthSpeak
                         continue;
                     }
                     RecognitionResult result = recognizer.Recognize();
-                    if (result != null && result.Confidence > 0)
+                    if (result != null && result.Confidence > .85)
                     {
                         Thread actionThread = new Thread(() => Program.RunInput(gameManager, new List<string>(result.Text.Split(' '))));
                         actionThread.Start();
@@ -55,9 +55,9 @@ namespace HearthSpeak
                 "face", "play online", "solo adventures", "concede game", "cancel", "blue button",
                 "point", "click", "finish", "power", "champion", "face", "go back", "well played",
                 "thank you", "sorry", "my collection", "oops", "threaten", "greetings", "good game",
-                "escape", "cancel", "naxxramas"
+                "escape", "cancel", "casual", "ranked", "quest log", "naxxramas"
             };
-            foreach (string desc in new string[] { "friendly", "enemy", "card", "deck", "play" })
+            foreach (string desc in new string[] { "friendly", "enemy", "card", "deck", "play", "choose" })
             {
                 for (int i = 0; i < 11; i++)
                 {

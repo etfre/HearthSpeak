@@ -127,6 +127,26 @@ namespace HearthSpeak
             return mulliganPositions[word];
         }
 
+        public int[] CancelButton()
+        {
+            return new int[] { 700, 650 };
+        }
+
+        public int[] CasualButton()
+        {
+            return new int[] { 930, 125 };
+        }
+
+        public int[] RankedButton()
+        {
+            return new int[] { 1060, 110 };
+        }
+
+        public int[] QuestLogButton()
+        {
+            return new int[] { 380, 667 };
+        }
+
         public int[] ConcedeButton()
         {
             return new int[] { 684, 281 };

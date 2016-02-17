@@ -19,7 +19,7 @@ namespace HearthSpeak
         {
             parser = new LogFileParser();
             parser.StartWatching();
-            ClickDelay = 600;
+            ClickDelay = 100;
             locator = new Locator(parser);
             ActionMap = new Dictionary<Regex, Action<List<string>>>
             {
@@ -39,11 +39,15 @@ namespace HearthSpeak
                 [new Regex(@"\Amulligan( [1-4]| confirm)+")] = Mulligan,
                 [new Regex(@"\Aselect [1-4]")] = SelectCard,
                 [new Regex(@"\escape")] = Escape,
+                [new Regex(@"\Acancel")] = CancelGame,
+                [new Regex(@"\Acasual")] = SelectCasual,
+                [new Regex(@"\Aranked")] = SelectRanked,
                 [new Regex(@"\Aconcede game")] = ConcedeGame,
+                [new Regex(@"\Aquest log")] = QuestLog,
                 [new Regex(@"\Ablue button")] = BlueButton,
                 [new Regex(@"\Acancel")] = GameCancel,
                 [new Regex(@"\Amy collection")] = MyCollection,
-                [new Regex(@"\Adeck [1-9]")] = Deck,
+                [new Regex(@"\Achoose [1-9]")] = ChooseDeck,
                 [new Regex(@"\A(thank you)|(sorry)|(well played)|(good game)|(oops)|(threaten)|(greetings)")] = Emote,
             };
         }
@@ -150,6 +154,26 @@ namespace HearthSpeak
             InputControl.TypeKeys("{ESC}");
         }
 
+        public void CancelGame(List<string> words)
+        {
+            InputControl.MouseClick(locator.CancelButton());
+        }
+
+        public void SelectCasual(List<string> words)
+        {
+            InputControl.MouseClick(locator.CasualButton());
+        }
+
+        public void SelectRanked(List<string> words)
+        {
+            InputControl.MouseClick(locator.RankedButton());
+        }
+
+        public void QuestLog(List<string> words)
+        {
+            InputControl.MouseClick(locator.QuestLogButton());
+        }
+
         public void ConcedeGame(List<string> words)
         {
             InputControl.TypeKeys("{ESC}");
@@ -188,7 +212,7 @@ namespace HearthSpeak
             BoardAction(new string[] { "friendly", "1" }.ToList(), locator.FriendlyBoard);
         }
 
-        public void Deck(List<string> words)
+        public void ChooseDeck(List<string> words)
         {
             InputControl.MouseClick(locator.Deck(Int32.Parse(words[1])));
         }
