@@ -46,7 +46,7 @@ namespace HearthSpeak
                 ["decrement friendly play"] = new Regex(@"from FRIENDLY PLAY ->"),
                 ["increment opposing play"] = new Regex(@"to OPPOSING PLAY$"),
                 ["decrement opposing play"] = new Regex(@"from OPPOSING PLAY ->"),
-                ["increment setaside"] = new Regex(@"TRANSITIONING card .+ zone=SETASIDE"),
+                ["increment setaside"] = new Regex(@"ZoneChangeList\.Finish.+changes=(\d+).+dstZoneTag=PLAY"),
                 ["reset setaside"] = new Regex(@"AddServerZoneChanges"),
 
             };
@@ -191,7 +191,7 @@ namespace HearthSpeak
                         NewOpposingPlayCount--;
                         break;
                     case "increment setaside":
-                        NewSetAsideCount++;
+                        NewSetAsideCount = Int32.Parse(match.Groups[1].ToString());
                         break;
                     case "reset setaside":
                         NewSetAsideCount = 0;

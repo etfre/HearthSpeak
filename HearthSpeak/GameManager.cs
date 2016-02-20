@@ -48,6 +48,7 @@ namespace HearthSpeak
                 [new Regex(@"\Acancel")] = GameCancel,
                 [new Regex(@"\Amy collection")] = MyCollection,
                 [new Regex(@"\Achoose [1-9]")] = ChooseDeck,
+                [new Regex(@"\Adeck [1-9]")] = SelectBuildDeck,
                 [new Regex(@"\A(thank you)|(sorry)|(well played)|(good game)|(oops)|(threaten)|(greetings)")] = Emote,
             };
         }
@@ -85,14 +86,15 @@ namespace HearthSpeak
 
         public void HandCard(List<string> words)
         {
-            InputControl.MouseClick(-1, -1, "right");
-            Thread.Sleep(ClickDelay / 2);
+            Console.WriteLine(parser.SetAsideCount);
             if (parser.SetAsideCount > 0)
             {
                 InputControl.MouseClick(locator.FaceCard(Int32.Parse(words[1])));
             }
             else
             {
+                InputControl.MouseClick(-1, -1, "right");
+                Thread.Sleep(ClickDelay / 2);
                 InputControl.MouseClick(locator.CardInHand(Int32.Parse(words[1])), "left", ClickDelay / 2);
             }
         }
@@ -215,6 +217,11 @@ namespace HearthSpeak
         public void ChooseDeck(List<string> words)
         {
             InputControl.MouseClick(locator.Deck(Int32.Parse(words[1])));
+        }
+
+        public void SelectBuildDeck(List<string> words)
+        {
+            InputControl.MouseClick(locator.SelectBuildDeck(Int32.Parse(words[1])));
         }
 
         public void Emote(List<string> words)

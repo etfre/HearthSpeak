@@ -203,18 +203,31 @@ namespace HearthSpeak
             return deckMap[deckNum];
         }
 
+        public int[] SelectBuildDeck(int deckNum)
+        {
+            deckNum--;
+            return new int[] { 1050, 100 + 67 * deckNum };
+        }
+
         public int[] FaceCard(int cardNum)
         {
-            int xpos = 300;
-            int ypos = 383;
+            int xpos = -1;
+            int ypos = 183;
             cardNum--;
             switch (parser.SetAsideCount)
             {
                 case 1:
                     xpos = 650;
                     break;
+                case 2:
+                    Console.WriteLine("sdf");
+                    xpos = 500 + 150 * cardNum;
+                    break;
                 case 3:
                     xpos = 400 + 300 * cardNum;
+                    break;
+                default:
+                    ypos = -1;
                     break;
             }
             return new int[] { xpos, ypos };

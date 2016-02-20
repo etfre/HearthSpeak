@@ -14,41 +14,23 @@ namespace HearthSpeak
 {
     class Program
     {
+        static private GameManager gameManager;
+
         static void Main(string[] args)
         {
-            SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine();
+            gameManager = new GameManager();
+            var recognizer = new SpeechRecognitionEngine();
+            recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(recognizer_SpeechRecognized);
+            recognizer.SetInputToDefaultAudioDevice();
             Grammar dictationGrammar = BuildGrammar();
             Grammar mulliganGrammer = BuildMulliganGrammar();
             recognizer.LoadGrammar(dictationGrammar);
             recognizer.LoadGrammar(mulliganGrammer);
-            var gameManager = new GameManager();
-            recognizer.SetInputToDefaultAudioDevice();
+            recognizer.RecognizeAsync(RecognizeMode.Multiple);
             System.Console.WriteLine("Ready!");
-            try
-            {
-                while (true)
-                {
-                    if (args.Contains("--debug"))
-                    {
-                        Console.Write("-> ");
-                        string userInput = Console.ReadLine();
-                        Thread.Sleep(4000);
-                        Program.RunInput(gameManager, new List<string>(userInput.Split(' ')));
-                        continue;
-                    }
-                    RecognitionResult result = recognizer.Recognize();
-                    if (result != null && result.Confidence > .85)
-                    {
-                        Thread actionThread = new Thread(() => Program.RunInput(gameManager, new List<string>(result.Text.Split(' '))));
-                        actionThread.Start();
-                    }
-                }
-            }
-            finally
-            {
-                recognizer.UnloadAllGrammars();
-            }
+            while (true) { }
         }
+
         static Grammar BuildGrammar()
         {
             var hearthDictionary = new List<string> {
@@ -69,23 +51,23 @@ namespace HearthSpeak
             Grammar grammar = new Grammar(gb);
             return grammar;
         }
-        public static void RunInput(GameManager manager, List<string> words)
+        static void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
+            if (e.Result == null || e.Result.Confidence <= .85) return;
+            List<string> words = e.Result.Text.Split(' ').ToList();
             System.Console.WriteLine("Got input: " + String.Join(" ", words));
             while (words.Count > 0)
             {
                 string wordsText = String.Join(" ", words.ToArray());
                 string matchedText = "";
-                foreach (var item in manager.ActionMap)
+                foreach (var item in gameManager.ActionMap)
                 {
                     Match match = item.Key.Match(wordsText);
-                    if (match.Success)
-                    {
-                        matchedText = match.Groups[0].Value;
-                        item.Value(matchedText.Split(' ').ToList());
-                        words = wordsText.Remove(0, matchedText.Length).Split(' ').ToList();
-                        break;
-                    }
+                    if (!match.Success) continue;
+                    matchedText = match.Groups[0].Value;
+                    item.Value(matchedText.Split(' ').ToList());
+                    words = wordsText.Remove(0, matchedText.Length).Split(' ').ToList();
+                    break;
                 }
                 if (matchedText == "")
                 {
