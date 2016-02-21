@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
@@ -22,22 +21,19 @@ namespace HearthSpeak
             var recognizer = new SpeechRecognitionEngine();
             recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(recognizer_SpeechRecognized);
             recognizer.SetInputToDefaultAudioDevice();
-            Grammar dictationGrammar = BuildGrammar();
-            Grammar mulliganGrammer = BuildMulliganGrammar();
-            recognizer.LoadGrammar(dictationGrammar);
-            recognizer.LoadGrammar(mulliganGrammer);
+            AddGrammars(recognizer);
             recognizer.RecognizeAsync(RecognizeMode.Multiple);
             System.Console.WriteLine("Ready!");
-            while (true) { }
+            while (true) Thread.Sleep(3000);
         }
 
         static Grammar BuildGrammar()
         {
             var hearthDictionary = new List<string> {
                 "face", "play online", "solo adventures", "concede game", "cancel", "blue button",
-                "point", "click", "finish", "power", "champion", "face", "go back", "well played",
+                "position", "click", "finish", "power", "champion", "face", "go back", "well played",
                 "thank you", "sorry", "my collection", "oops", "threaten", "greetings", "good game",
-                "escape", "cancel", "casual", "ranked", "quest log", "naxxramas"
+                "escape", "cancel", "casual", "ranked", "quest log", "center mouse", "hide mouse", "naxxramas"
             };
             foreach (string desc in new string[] { "friendly", "enemy", "card", "deck", "play", "choose" })
             {
@@ -75,16 +71,36 @@ namespace HearthSpeak
                 }
             }
         }
-        static Grammar BuildMulliganGrammar()
+
+        static void AddGrammars(SpeechRecognitionEngine recognizer)
         {
-            Choices toppings = new Choices(new string[] {
-                "1", "2", "3", "4", "confirm"
-            });
-            GrammarBuilder gb = new GrammarBuilder("mulligan");
-            gb.Append(toppings);
-            gb.Append(new GrammarBuilder(toppings, 0, 4));
-            Grammar grammar = new Grammar(gb);
-            return grammar;
+            Grammar dictationGrammar = BuildGrammar();
+            Grammar mulliganGrammer = MakeRepeatedGrammar(new string[] { "mulligan" }, new string[] { "1", "2", "3", "4", "confirm" }, 99);
+            Grammar moveGrammar = MakeMoveGrammar();
+            recognizer.LoadGrammar(dictationGrammar);
+            recognizer.LoadGrammar(mulliganGrammer);
+            recognizer.LoadGrammar(moveGrammar);
         }
+
+        private static Grammar MakeRepeatedGrammar(string[] firstWords, string[] choicesArr, int choicesMax=99)
+        {
+            var gb = new GrammarBuilder(new Choices(firstWords));
+            var choices = new Choices(choicesArr);
+            gb.Append(new GrammarBuilder(choices, 1, choicesMax));
+            return new Grammar(gb);
+        }
+
+        private static Grammar MakeMoveGrammar()
+        {
+            var directions = new string[] { "up", "right", "down", "left" };
+            var numberList = Enumerable.Range(0, 9).Select(i => i.ToString()).ToArray();
+            var numberChoices = new Choices(numberList);
+            var gb = new GrammarBuilder(new Choices(directions));
+            gb.Append(numberChoices, 0, 4);
+            gb.Append(new GrammarBuilder("point", 0, 1));
+            gb.Append(new GrammarBuilder(numberChoices, 0, 4));
+            return new Grammar(gb);
+        }
+
     }
 }

@@ -40,6 +40,12 @@ namespace HearthSpeak
             SetCursorPos(xpos, ypos);
         }
 
+        public static void SetCursorPosition(int[] coords)
+        {
+            SetCursorPos(coords[0], coords[1]);
+        }
+
+
         public static int[] CursorPosition()
         {
             return new int[] { Cursor.Position.X, Cursor.Position.Y };

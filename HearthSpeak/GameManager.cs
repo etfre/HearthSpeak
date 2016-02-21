@@ -23,7 +23,7 @@ namespace HearthSpeak
             locator = new Locator(parser);
             ActionMap = new Dictionary<Regex, Action<List<string>>>
             {
-                [new Regex(@"\Apoint")] = GetPoint,
+                [new Regex(@"\Aposition")] = GetPosition,
                 [new Regex(@"\Aclick")] = Click,
                 [new Regex(@"\Afinish")] = EndTurn,
                 [new Regex(@"\Aplay online")] = PlayGame,
@@ -45,10 +45,13 @@ namespace HearthSpeak
                 [new Regex(@"\Aconcede game")] = ConcedeGame,
                 [new Regex(@"\Aquest log")] = QuestLog,
                 [new Regex(@"\Ablue button")] = BlueButton,
+                [new Regex(@"\Acenter mouse")] = CenterMouse,
+                [new Regex(@"\Ahide mouse")] = HideMouse,
                 [new Regex(@"\Acancel")] = GameCancel,
                 [new Regex(@"\Amy collection")] = MyCollection,
                 [new Regex(@"\Achoose [1-9]")] = ChooseDeck,
                 [new Regex(@"\Adeck [1-9]")] = SelectBuildDeck,
+                [new Regex(@"\A(up|right|down|left).+")] = MoveDirection,
                 [new Regex(@"\A(thank you)|(sorry)|(well played)|(good game)|(oops)|(threaten)|(greetings)")] = Emote,
             };
         }
@@ -73,7 +76,7 @@ namespace HearthSpeak
             InputControl.MouseClick(locator.EndTurnButton());
         }
 
-        public void GetPoint(List<string> words)
+        public void GetPosition(List<string> words)
         {
             var pos = InputControl.CursorPosition();
             System.Console.WriteLine(pos[0].ToString() + ", " + pos[1].ToString());
@@ -86,17 +89,9 @@ namespace HearthSpeak
 
         public void HandCard(List<string> words)
         {
-            Console.WriteLine(parser.SetAsideCount);
-            if (parser.SetAsideCount > 0)
-            {
-                InputControl.MouseClick(locator.FaceCard(Int32.Parse(words[1])));
-            }
-            else
-            {
-                InputControl.MouseClick(-1, -1, "right");
-                Thread.Sleep(ClickDelay / 2);
-                InputControl.MouseClick(locator.CardInHand(Int32.Parse(words[1])), "left", ClickDelay / 2);
-            }
+            InputControl.MouseClick(-1, -1, "right");
+            Thread.Sleep(ClickDelay / 2);
+            InputControl.MouseClick(locator.CardInHand(Int32.Parse(words[1])), "left", ClickDelay / 2);
         }
 
         public void FriendlyBoard(List<string> words)
@@ -189,6 +184,16 @@ namespace HearthSpeak
             InputControl.MouseClick(locator.BlueButton());
         }
 
+        public void CenterMouse(List<string> words)
+        {
+            InputControl.SetCursorPosition(locator.CenterPosition());
+        }
+
+        public void HideMouse(List<string> words)
+        {
+            InputControl.SetCursorPosition(locator.HidePosition());
+        }
+
         public void MyCollection(List<string> words)
         {
             Thread.Sleep(ClickDelay);
@@ -222,6 +227,36 @@ namespace HearthSpeak
         public void SelectBuildDeck(List<string> words)
         {
             InputControl.MouseClick(locator.SelectBuildDeck(Int32.Parse(words[1])));
+        }
+
+        public void MoveDirection(List<string> words)
+        {
+            string moveAmount = ""; double moveAmountDouble;
+            for (var i = 1; i < words.Count; i++)
+            {
+                string word = words[i] == "point" ? "." : words[i];
+                moveAmount += word;
+            }
+            bool result = Double.TryParse(moveAmount, out moveAmountDouble);
+            if (!result) return;
+            int moveAmountInt = (int)Math.Ceiling(moveAmountDouble * 200);
+            int[] currentPos = InputControl.CursorPosition();
+            switch (words[0])
+            {
+                case "up":
+                    InputControl.SetCursorPosition(currentPos[0], currentPos[1] - moveAmountInt);
+                    break;
+                case "right":
+                    InputControl.SetCursorPosition(currentPos[0] + moveAmountInt, currentPos[1]);
+                    break;
+                case "down":
+                    InputControl.SetCursorPosition(currentPos[0], currentPos[1] + moveAmountInt);
+                    break;
+                case "left":
+                    InputControl.SetCursorPosition(currentPos[0] - moveAmountInt, currentPos[1]);
+                    break;
+
+            }
         }
 
         public void Emote(List<string> words)

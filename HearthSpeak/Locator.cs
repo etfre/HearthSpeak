@@ -209,6 +209,16 @@ namespace HearthSpeak
             return new int[] { 1050, 100 + 67 * deckNum };
         }
 
+        public int[] CenterPosition()
+        {
+            return new int[] { 685, 358 };
+        }
+        public int[] HidePosition()
+        {
+            return new int[] { 0, 767 };
+        }
+
+
         public int[] FaceCard(int cardNum)
         {
             int xpos = -1;
