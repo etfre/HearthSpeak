@@ -230,7 +230,6 @@ namespace HearthSpeak
                     xpos = 650;
                     break;
                 case 2:
-                    Console.WriteLine("sdf");
                     xpos = 500 + 150 * cardNum;
                     break;
                 case 3:

@@ -95,11 +95,20 @@ namespace HearthSpeak
             var directions = new string[] { "up", "right", "down", "left" };
             var numberList = Enumerable.Range(0, 9).Select(i => i.ToString()).ToArray();
             var numberChoices = new Choices(numberList);
+            var min1Number = new GrammarBuilder(numberChoices, 1, 4);
+            var numInFront = new GrammarBuilder();
+            numInFront.Append(min1Number);
+            numInFront.Append(new GrammarBuilder(PointGrammar(numberChoices), 0, 1));
             var gb = new GrammarBuilder(new Choices(directions));
-            gb.Append(numberChoices, 0, 4);
-            gb.Append(new GrammarBuilder("point", 0, 1));
-            gb.Append(new GrammarBuilder(numberChoices, 0, 4));
+            gb.Append(new Choices(new GrammarBuilder[] { numInFront, PointGrammar(numberChoices) }));
             return new Grammar(gb);
+        }
+
+        static GrammarBuilder PointGrammar(Choices numberChoices)
+        {
+            var pointGb = new GrammarBuilder("point");
+            pointGb.Append(new GrammarBuilder(numberChoices), 1, 4);
+            return pointGb;
         }
 
     }
