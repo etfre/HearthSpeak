@@ -70,8 +70,11 @@
     <Compile Include="InputControl.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="LogFileParser.cs" />
+    <Compile Include="menus\BaseMenu.cs" />
+    <Compile Include="menus\MainMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recognizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

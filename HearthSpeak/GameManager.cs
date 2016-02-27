@@ -51,6 +51,7 @@ namespace HearthSpeak
                 [new Regex(@"\Amy collection")] = MyCollection,
                 [new Regex(@"\Achoose [1-9]")] = ChooseDeck,
                 [new Regex(@"\Adeck [1-9]")] = SelectBuildDeck,
+                [new Regex(@"\Aopen pack")] = OpenPack,
                 [new Regex(@"\A(up|right|down|left).+")] = MoveDirection,
                 [new Regex(@"\A(thank you)|(sorry)|(well played)|(good game)|(oops)|(threaten)|(greetings)")] = Emote,
             };
@@ -228,6 +229,22 @@ namespace HearthSpeak
         {
             InputControl.MouseClick(locator.SelectBuildDeck(Int32.Parse(words[1])));
         }
+
+        public void OpenPack(List<string> words)
+        {
+            InputControl.TypeKeys(" ");
+            Thread.Sleep(5000);
+            List<int[]> points = locator.CardPacks().ToList();
+            int[] doneButton = points.Last();
+            points.RemoveAt(points.Count - 1);
+            foreach (int[] cardPosition in points)
+            {
+                InputControl.MouseClick(cardPosition, "left", ClickDelay / 2);
+            }
+            Thread.Sleep(2500);
+            InputControl.MouseClick(doneButton, "left", ClickDelay / 2);
+        }
+
 
         public void MoveDirection(List<string> words)
         {

@@ -90,7 +90,7 @@ namespace HearthSpeak
             int ypos = 250;
             return new int[] { CreateXPos(pos, parser.OpposingPlayCount), ypos };
         }
-        
+
         private int CreateXPos(int pos, int cardCount)
         {
             pos--;
@@ -117,7 +117,8 @@ namespace HearthSpeak
         public int[] Mulligan(string word)
         {
             int ypos = 350;
-            var mulliganPositions = new Dictionary<string, int[]> {
+            var mulliganPositions = new Dictionary<string, int[]>
+            {
                 ["1"] = new int[] { 450, ypos },
                 ["2"] = new int[] { 630, ypos },
                 ["3"] = new int[] { 850, ypos },
@@ -156,7 +157,7 @@ namespace HearthSpeak
         {
             return new int[] { 986, 631 };
         }
-        
+
 
         public int[] MyCollectionButton()
         {
@@ -242,6 +243,16 @@ namespace HearthSpeak
             return new int[] { xpos, ypos };
         }
 
-
+        public int[][] CardPacks()
+        {
+            return new int[][] {
+                new int[] { 1061, 270 }, 
+                new int[] { 949, 592 }, 
+                new int[] { 661, 577 },
+                new int[] { 568, 264 },
+                new int[] { 808, 162 },
+                new int[] { 801, 396 },
+            };
+        }
     }
 }
