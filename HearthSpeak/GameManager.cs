@@ -37,7 +37,6 @@ namespace HearthSpeak
                 [new Regex(@"\Achampion")] = FriendlyPortrait,
                 [new Regex(@"\Aface")] = OpposingPortrait,
                 [new Regex(@"\Amulligan( [1-4]| confirm)+")] = Mulligan,
-                [new Regex(@"\Aselect [1-4]")] = SelectCard,
                 [new Regex(@"\escape")] = Escape,
                 [new Regex(@"\Acancel")] = CancelGame,
                 [new Regex(@"\Acasual")] = SelectCasual,
@@ -207,12 +206,6 @@ namespace HearthSpeak
             InputControl.MouseClick(locator.GameCancelButton());
         }
 
-        public void SelectCard(List<string> words)
-        {
-            Thread.Sleep(ClickDelay);
-            InputControl.MouseClick(locator.FaceCard(Int32.Parse(words[1])));
-        }
-
         public void PlayCard(List<string> words)
         {
             HandCard(words);
@@ -284,6 +277,5 @@ namespace HearthSpeak
             InputControl.MouseClick(locator.Emote(joinedWords));
 
         }
-
     }
 }

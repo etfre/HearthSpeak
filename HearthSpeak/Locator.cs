@@ -219,30 +219,6 @@ namespace HearthSpeak
             return new int[] { 0, 767 };
         }
 
-
-        public int[] FaceCard(int cardNum)
-        {
-            int xpos = -1;
-            int ypos = 183;
-            cardNum--;
-            switch (parser.SetAsideCount)
-            {
-                case 1:
-                    xpos = 650;
-                    break;
-                case 2:
-                    xpos = 500 + 150 * cardNum;
-                    break;
-                case 3:
-                    xpos = 400 + 300 * cardNum;
-                    break;
-                default:
-                    ypos = -1;
-                    break;
-            }
-            return new int[] { xpos, ypos };
-        }
-
         public int[][] CardPacks()
         {
             return new int[][] {

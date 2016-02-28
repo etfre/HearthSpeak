@@ -12,8 +12,8 @@ namespace HearthSpeak.menus
         public MainMenu()
         {
             Add("Start Listening", StartListening);
-            Add("Change Screen Resolution", AdjustResolution);
-            Add("Quit", AdjustResolution);
+            //Add("Change Screen Resolution", AdjustResolution);
+            Add("Quit", ExitApplication);
             Prompt = "Enter an option: ";
             Display();
             Console.ReadLine();
@@ -22,6 +22,11 @@ namespace HearthSpeak.menus
         public void AdjustResolution()
         {
             
+        }
+
+        public void ExitApplication()
+        {
+            System.Environment.Exit(1);
         }
 
         public void StartListening()
