@@ -50,7 +50,11 @@ namespace HearthSpeak
                 [new Regex(@"\Amy collection")] = MyCollection,
                 [new Regex(@"\Achoose [1-9]")] = ChooseDeck,
                 [new Regex(@"\Adeck [1-9]")] = SelectBuildDeck,
+                [new Regex(@"\Aselect [1-8]")] = ConstructCard,
+                [new Regex(@"\Afilter [0-7]")] = FilterByMana,
                 [new Regex(@"\Aopen pack")] = OpenPack,
+                [new Regex(@"\Aflip next")] = FlipNext,
+                [new Regex(@"\Aflip back")] = FlipBack,
                 [new Regex(@"\A(up|right|down|left).+")] = MoveDirection,
                 [new Regex(@"\A(thank you)|(sorry)|(well played)|(good game)|(oops)|(threaten)|(greetings)")] = Emote,
             };
@@ -275,7 +279,28 @@ namespace HearthSpeak
             InputControl.MouseClick(locator.FriendlyPortrait(), "right");
             Thread.Sleep(250);
             InputControl.MouseClick(locator.Emote(joinedWords));
-
         }
+
+        public void ConstructCard(List<string> words)
+        {
+            InputControl.MouseClick(locator.ConstructCard(Int32.Parse(words[1])));
+        }
+
+        public void FilterByMana(List<string> words)
+        {
+            InputControl.MouseClick(locator.ManaButton(Int32.Parse(words[1])));
+        }
+
+        public void FlipNext(List<string> words)
+        {
+            InputControl.MouseClick(locator.FlipNext());
+        }
+
+        public void FlipBack(List<string> words)
+        {
+            InputControl.MouseClick(locator.FlipBack());
+        }
+
+
     }
 }

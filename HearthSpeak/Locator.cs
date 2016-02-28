@@ -158,6 +158,30 @@ namespace HearthSpeak
             return new int[] { 986, 631 };
         }
 
+        public int[] ConstructCard(int cardNum)
+        {
+            cardNum--;
+            int xpos = 250 + (cardNum % 4) * 175;
+            int ypos = cardNum < 4 ? 250 : 500;
+            return new int[] { xpos, ypos };
+        }
+
+        public int[] ManaButton(int cardNum)
+        {
+            int xpos = 292 + cardNum * 36;
+            return new int[] { xpos, 700 };
+        }
+
+        public int[] FlipNext()
+        {
+            return new int[] { 900, 385 };
+        }
+
+        public int[] FlipBack()
+        {
+            return new int[] { 190, 385 };
+        }
+
 
         public int[] MyCollectionButton()
         {
