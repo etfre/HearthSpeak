@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Speech.Recognition;
 using System.Text.RegularExpressions;
+using HearthSpeak.menus;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -107,5 +108,14 @@ namespace HearthSpeak
             pointGb.Append(new GrammarBuilder(numberChoices), 1, 4);
             return pointGb;
         }
+
+        public void ListenIO()
+        {
+            System.Console.WriteLine("Listening for input. Press Enter to stop listening.");
+            Console.ReadLine();
+            Engine.RecognizeAsyncCancel();
+            new MainMenu();
+        }
+
     }
 }

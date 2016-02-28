@@ -21,16 +21,13 @@ namespace HearthSpeak.menus
 
         public void AdjustResolution()
         {
-
+            
         }
 
         public void StartListening()
         {
             var recognizer = new Recognizer();
-            System.Console.WriteLine("Listening for input. Press Enter to stop listening.");
-            Console.ReadLine();
-            recognizer.Engine.RecognizeAsyncCancel();
-            new MainMenu();
+            recognizer.ListenIO();
         }
 
     }

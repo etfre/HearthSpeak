@@ -16,7 +16,12 @@ namespace HearthSpeak
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to HearthSpeak!\n");
-            new MainMenu();
+            if (Properties.Settings.Default.StartListeningAtLaunch)
+            {
+                var recognizer = new Recognizer();
+                recognizer.ListenIO();
+            }
+            else new MainMenu();
         }
     }
 }
