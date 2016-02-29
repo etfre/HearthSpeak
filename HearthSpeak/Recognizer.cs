@@ -76,9 +76,11 @@ namespace HearthSpeak
             Grammar dictationGrammar = BuildGrammar();
             Grammar mulliganGrammer = MakeRepeatedGrammar(new string[] { "mulligan" }, new string[] { "1", "2", "3", "4", "confirm" }, 99);
             Grammar moveGrammar = MakeMoveGrammar();
+            Grammar removeGrammar = RemoveCardGrammar();
             recognizer.LoadGrammar(dictationGrammar);
             recognizer.LoadGrammar(mulliganGrammer);
             recognizer.LoadGrammar(moveGrammar);
+            recognizer.LoadGrammar(removeGrammar);
         }
 
         Grammar MakeRepeatedGrammar(string[] firstWords, string[] choicesArr, int choicesMax = 99)
@@ -100,6 +102,16 @@ namespace HearthSpeak
             numInFront.Append(new GrammarBuilder(PointGrammar(numberChoices), 0, 1));
             var gb = new GrammarBuilder(new Choices(directions));
             gb.Append(new Choices(new GrammarBuilder[] { numInFront, PointGrammar(numberChoices) }));
+            return new Grammar(gb);
+        }
+
+        Grammar RemoveCardGrammar()
+        {
+            var numberListSmall = Enumerable.Range(1, 3).Select(i => i.ToString()).ToArray();
+            var numberList = Enumerable.Range(0, 10).Select(i => i.ToString()).ToArray();
+            var gb = new GrammarBuilder("remove");
+            gb.Append(new GrammarBuilder(new Choices(numberListSmall), 0, 1));
+            gb.Append(new GrammarBuilder(new Choices(numberList)));
             return new Grammar(gb);
         }
 

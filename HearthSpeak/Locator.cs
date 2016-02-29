@@ -182,6 +182,20 @@ namespace HearthSpeak
             return new int[] { 190, 385 };
         }
 
+        public int[] CardInDeckList(int cardNum)
+        {
+            cardNum--;
+            int ypos = 95 + cardNum * 29;
+            return new int[] { 1090, ypos };
+        }
+
+        public int[] CardInDeckListBottom(int cardNum)
+        {
+            cardNum -= 22;
+            int ypos = 425 + cardNum * 29;
+            return new int[] { 1090, ypos };
+        }
+
 
         public int[] MyCollectionButton()
         {
@@ -192,6 +206,16 @@ namespace HearthSpeak
         public int[] GameCancelButton()
         {
             return new int[] { 700, 645 };
+        }
+
+        public int[] CardListDragStart()
+        {
+            return new int[] { 1173, 37 };
+        }
+
+        public int[] CardListDragEnd()
+        {
+            return new int[] { 1173, 657 };
         }
 
         public int[] Emote(string words)

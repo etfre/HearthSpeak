@@ -55,6 +55,8 @@ namespace HearthSpeak
                 [new Regex(@"\Aopen pack")] = OpenPack,
                 [new Regex(@"\Aflip next")] = FlipNext,
                 [new Regex(@"\Aflip back")] = FlipBack,
+                [new Regex(@"\Aremove \d( \d)?")] = RemoveCardInDeckList,
+                
                 [new Regex(@"\A(up|right|down|left).+")] = MoveDirection,
                 [new Regex(@"\A(thank you)|(sorry)|(well played)|(good game)|(oops)|(threaten)|(greetings)")] = Emote,
             };
@@ -301,6 +303,19 @@ namespace HearthSpeak
             InputControl.MouseClick(locator.FlipBack());
         }
 
-
+        public void RemoveCardInDeckList(List<string> words)
+        {
+            InputControl.MouseClick(locator.CardListDragStart());
+            int num;
+            if (words.Count == 2) num = Int32.Parse(words[1]);
+            else num = Int32.Parse(words[1] + words[2]);
+            Console.WriteLine(num);
+            if (num < 22) InputControl.MouseClick(locator.CardInDeckList(num));
+            else
+            {
+                InputControl.MouseClick(locator.CardListDragEnd());
+                InputControl.MouseClick(locator.CardInDeckListBottom(num));
+            }
+        }
     }
 }

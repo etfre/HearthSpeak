@@ -66,5 +66,16 @@ namespace HearthSpeak
         {
             SendKeys.SendWait(keys);
         }
+
+        public static void DragAndDrop(int[] startpos, int[] endpos)
+        {
+            //Click(startpos[0], startpos[1]);
+            SetCursorPos(startpos[0], startpos[1]);
+            Thread.Sleep(1000);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, startpos[0], startpos[1], 0, 0);
+            //Thread.Sleep(5000);
+            //SetCursorPos(endpos[0], endpos[1]);
+            mouse_event(MOUSEEVENTF_LEFTUP, endpos[0], endpos[1], 0, 0);
+        }
     }
 }

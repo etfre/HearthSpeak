@@ -7,7 +7,15 @@ using IniParser;
 
 namespace HearthSpeak
 {
-    class Config
+    public static class Config
     {
+        private readonly static string LogConfigPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
+                                                       + @"\Blizzard\Hearthstone\log.config";
+
+        public static void InitializeLogFile()
+        {
+
+        }
+
     }
 }
