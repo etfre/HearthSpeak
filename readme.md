@@ -4,7 +4,7 @@ HearthSpeak is a program that allows you to control Hearthstone through voice co
 
 ## Installation
 
-Download the latest release [here](https://github.com/evfredericksen/hearthspeak/releases/latest), extract HearthSpeak.exe anywhere and run it.
+Download the latest release [here](https://github.com/evfredericksen/hearthspeak/releases/latest), and run it.
 
 ## Usage
 
