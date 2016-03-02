@@ -15,6 +15,7 @@ namespace HearthSpeak
     {
         static void Main(string[] args)
         {
+            Config.InitializeLogFile();
             Console.WriteLine("Welcome to HearthSpeak!\n");
             if (Properties.Settings.Default.StartListeningAtLaunch)
             {
