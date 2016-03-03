@@ -31,7 +31,7 @@ namespace HearthSpeak
                 "position", "click", "finish", "power", "champion", "face", "go back", "well played",
                 "thank you", "sorry", "my collection", "oops", "threaten", "greetings", "good game",
                 "escape", "cancel", "casual", "ranked", "quest log", "center mouse", "hide mouse", "naxxramas",
-                "open pack", "flip next", "flip back"
+                "open pack", "flip next", "flip back", "the arena", "arena play"
             };
             foreach (string desc in new string[] { "friendly", "enemy", "card", "deck", "play", "choose", "select",
                                                    "filter" })

@@ -55,6 +55,8 @@ namespace HearthSpeak
                 [new Regex(@"\Aopen pack")] = OpenPack,
                 [new Regex(@"\Aflip next")] = FlipNext,
                 [new Regex(@"\Aflip back")] = FlipBack,
+                [new Regex(@"\Athe arena")] = ArenaOpenButton,
+                [new Regex(@"\Aarena play")] = ArenaPlayButton,
                 [new Regex(@"\Aremove \d( \d)?")] = RemoveCardInDeckList,
                 
                 [new Regex(@"\A(up|right|down|left).+")] = MoveDirection,
@@ -301,6 +303,16 @@ namespace HearthSpeak
         public void FlipBack(List<string> words)
         {
             InputControl.MouseClick(locator.FlipBack());
+        }
+
+        public void ArenaOpenButton(List<string> words)
+        {
+            InputControl.MouseClick(locator.ArenaOpenButton());
+        }
+
+        public void ArenaPlayButton(List<string> words)
+        {
+            InputControl.MouseClick(locator.ArenaPlayButton());
         }
 
         public void RemoveCardInDeckList(List<string> words)

@@ -267,6 +267,17 @@ namespace HearthSpeak
             return new int[] { 0, 767 };
         }
 
+        public int[] ArenaOpenButton()
+        {
+            return new int[] { 675, 345 };
+        }
+
+
+        public int[] ArenaPlayButton()
+        {
+            return new int[] { 780, 600 };
+        }
+
         public int[][] CardPacks()
         {
             return new int[][] {
