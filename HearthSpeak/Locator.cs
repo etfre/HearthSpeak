@@ -298,6 +298,11 @@ namespace HearthSpeak
             return new int[] { 1010, 481 };
         }
 
+        public int[] CraftingButton()
+        {
+            return new int[] { 876, 709 };
+        }
+
         public int[] DisenchantCard()
         {
             return new int[] { 571, 645 };
@@ -308,14 +313,24 @@ namespace HearthSpeak
             return new int[] { 726, 645 };
         }
 
-        public int[] ConfirmEnchant()
+        public int[] CancelDisenchant()
         {
-            return new int[] { 603, 548 };
+            return new int[] { 763, 458 };
         }
 
         public int[] ConfirmDisenchant()
         {
-            return new int[] { 763, 458 };
+            return new int[] { 603, 458 };
+        }
+
+        public int[] ShopButton()
+        {
+            return new int[] { 247, 673 };
+        }
+
+        public int[] OpenPacksButton()
+        {
+            return new int[] { 547, 642 };
         }
 
         public int[][] CardPacks()

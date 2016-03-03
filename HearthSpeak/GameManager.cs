@@ -37,7 +37,7 @@ namespace HearthSpeak
                 [new Regex(@"\Achampion")] = FriendlyPortrait,
                 [new Regex(@"\Aface")] = OpposingPortrait,
                 [new Regex(@"\Amulligan( [1-4]| confirm)+")] = Mulligan,
-                [new Regex(@"\escape")] = Escape,
+                [new Regex(@"\Aescape")] = Escape,
                 [new Regex(@"\Acasual")] = SelectCasual,
                 [new Regex(@"\Aranked")] = SelectRanked,
                 [new Regex(@"\Aconcede game")] = ConcedeGame,
@@ -52,13 +52,27 @@ namespace HearthSpeak
                 [new Regex(@"\Aselect [1-8]")] = ConstructCard,
                 [new Regex(@"\Afilter [0-7]")] = FilterByMana,
                 [new Regex(@"\Atoggle (10|[1-9])")] = CardBookTabs,
-                [new Regex(@"\Aopen pack")] = OpenPack,
+                [new Regex(@"\Ax marks the spot")] = OpenPack,
                 [new Regex(@"\Aflip next")] = FlipNext,
                 [new Regex(@"\Aflip back")] = FlipBack,
                 [new Regex(@"\Athe arena")] = ArenaOpenButton,
                 [new Regex(@"\Aarena play")] = ArenaPlayButton,
+                [new Regex(@"\Aabuy pack")] = BuyPack,
+                [new Regex(@"\Ashow only golden cards")] = ShowOnlyGoldenCards,
+                [new Regex(@"\Ainclude uncraftable cards")] = IncludeUncraftableCards,
+                [new Regex(@"\Atavern brawl")] = TavernBrawlButton,
+                [new Regex(@"\Adisenchant card")] = DisenchantCard,
+                [new Regex(@"\Acreate card")] = CreateCard,
+                [new Regex(@"\Aconfirm disenchant")] = ConfirmDisenchant,
+                [new Regex(@"\Acancel disenchant")] = CancelDisenchant,
+                [new Regex(@"\Acrafting")] = CraftingButton,
+                [new Regex(@"\Aopen packs")] = OpenPacksButton,
+                [new Regex(@"\Ashop for cards")] = ShopButton,
+
                 [new Regex(@"\Aremove \d( \d)?")] = RemoveCardInDeckList,
-                
+                [new Regex(@"\Ascroll up")] = ScrollCardListUp,
+                [new Regex(@"\Ascroll down")] = ScrollCardListDown,
+
                 [new Regex(@"\A(up|right|down|left).+")] = MoveDirection,
                 [new Regex(@"\A(thank you)|(sorry)|(well played)|(good game)|(oops)|(threaten)|(greetings)")] = Emote,
             };
@@ -315,6 +329,69 @@ namespace HearthSpeak
             InputControl.MouseClick(locator.ArenaPlayButton());
         }
 
+        public void TavernBrawlButton(List<string> words)
+        {
+            InputControl.MouseClick(locator.TavernBrawlButton());
+        }
+
+
+        public void BuyPack(List<string> words)
+        {
+            InputControl.MouseClick(locator.BuyPackButton());
+        }
+
+
+        public void ShowOnlyGoldenCards(List<string> words)
+        {
+            Console.WriteLine("fll");
+            InputControl.MouseClick(locator.ShowOnlyGoldenCards());
+        }
+
+
+        public void IncludeUncraftableCards(List<string> words)
+        {
+            InputControl.MouseClick(locator.IncludeUncraftableCards());
+        }
+
+
+        public void DisenchantCard(List<string> words)
+        {
+            InputControl.MouseClick(locator.DisenchantCard());
+        }
+
+
+        public void CreateCard(List<string> words)
+        {
+            InputControl.MouseClick(locator.CreateCard());
+        }
+
+
+        public void ConfirmDisenchant(List<string> words)
+        {
+            InputControl.MouseClick(locator.ConfirmDisenchant());
+        }
+
+
+        public void CancelDisenchant(List<string> words)
+        {
+            InputControl.MouseClick(locator.CancelDisenchant());
+        }
+
+        public void CraftingButton(List<string> words)
+        {
+            InputControl.MouseClick(locator.CraftingButton());
+        }
+
+        public void OpenPacksButton(List<string> words)
+        {
+            InputControl.MouseClick(locator.OpenPacksButton());
+        }
+
+        public void ShopButton(List<string> words)
+        {
+            InputControl.MouseClick(locator.ShopButton());
+        }
+
         public void RemoveCardInDeckList(List<string> words)
         {
             InputControl.MouseClick(locator.CardListDragStart());
@@ -329,5 +406,16 @@ namespace HearthSpeak
                 InputControl.MouseClick(locator.CardInDeckListBottom(num));
             }
         }
+
+        public void ScrollCardListDown(List<string> words)
+        {
+            InputControl.MouseClick(locator.CardListDragEnd());
+        }
+
+        public void ScrollCardListUp(List<string> words)
+        {
+            InputControl.MouseClick(locator.CardListDragStart());
+        }
+
     }
 }
