@@ -128,11 +128,6 @@ namespace HearthSpeak
             return mulliganPositions[word];
         }
 
-        public int[] CancelButton()
-        {
-            return new int[] { 700, 650 };
-        }
-
         public int[] CasualButton()
         {
             return new int[] { 930, 125 };
@@ -272,10 +267,55 @@ namespace HearthSpeak
             return new int[] { 675, 345 };
         }
 
-
         public int[] ArenaPlayButton()
         {
             return new int[] { 780, 600 };
+        }
+
+        public int[] TavernBrawlButton()
+        {
+            return new int[] { 690, 395 };
+        }
+
+        public int[] BuyPackButton()
+        {
+            return new int[] { 1007, 551 };
+        }
+
+        public int[] CardBookTabs(int tabNum)
+        {
+            tabNum--;
+            return new int[] { 208 + 50 * tabNum, 28 };
+        }
+
+        public int[] ShowOnlyGoldenCards()
+        {
+            return new int[] { 1009, 425 };
+        }
+
+        public int[] IncludeUncraftableCards()
+        {
+            return new int[] { 1010, 481 };
+        }
+
+        public int[] DisenchantCard()
+        {
+            return new int[] { 571, 645 };
+        }
+
+        public int[] CreateCard()
+        {
+            return new int[] { 726, 645 };
+        }
+
+        public int[] ConfirmEnchant()
+        {
+            return new int[] { 603, 548 };
+        }
+
+        public int[] ConfirmDisenchant()
+        {
+            return new int[] { 763, 458 };
         }
 
         public int[][] CardPacks()

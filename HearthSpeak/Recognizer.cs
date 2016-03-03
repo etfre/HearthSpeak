@@ -30,11 +30,13 @@ namespace HearthSpeak
                 "face", "play online", "solo adventures", "concede game", "cancel", "blue button",
                 "position", "click", "finish", "power", "champion", "face", "go back", "well played",
                 "thank you", "sorry", "my collection", "oops", "threaten", "greetings", "good game",
-                "escape", "cancel", "casual", "ranked", "quest log", "center mouse", "hide mouse", "naxxramas",
-                "open pack", "flip next", "flip back", "the arena", "arena play"
+                "escape", "cancel search", "casual", "ranked", "quest log", "center mouse", "hide mouse", "naxxramas",
+                "open pack", "flip next", "flip back", "the arena", "arena play", "tavern brawl", "scroll up", "scroll down",
+                "crafting", "confirm disenchant", "cancel disenchant", "create card", "disenchant card", "buy pack",
+                "show only golden cards", "include uncraftable cards"
             };
             foreach (string desc in new string[] { "friendly", "enemy", "card", "deck", "play", "choose", "select",
-                                                   "filter" })
+                                                   "filter", "toggle" })
             {
                 for (int i = 0; i < 11; i++)
                 {
@@ -48,7 +50,7 @@ namespace HearthSpeak
         }
         void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            if (e.Result == null || e.Result.Confidence <= .85) return;
+            if (e.Result == null || e.Result.Confidence <= .9) return;
             List<string> words = e.Result.Text.Split(' ').ToList();
             System.Console.WriteLine("Got input: " + String.Join(" ", words));
             while (words.Count > 0)

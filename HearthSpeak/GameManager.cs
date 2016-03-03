@@ -38,7 +38,6 @@ namespace HearthSpeak
                 [new Regex(@"\Aface")] = OpposingPortrait,
                 [new Regex(@"\Amulligan( [1-4]| confirm)+")] = Mulligan,
                 [new Regex(@"\escape")] = Escape,
-                [new Regex(@"\Acancel")] = CancelGame,
                 [new Regex(@"\Acasual")] = SelectCasual,
                 [new Regex(@"\Aranked")] = SelectRanked,
                 [new Regex(@"\Aconcede game")] = ConcedeGame,
@@ -46,12 +45,13 @@ namespace HearthSpeak
                 [new Regex(@"\Ablue button")] = BlueButton,
                 [new Regex(@"\Acenter mouse")] = CenterMouse,
                 [new Regex(@"\Ahide mouse")] = HideMouse,
-                [new Regex(@"\Acancel")] = GameCancel,
+                [new Regex(@"\Acancel search")] = GameCancel,
                 [new Regex(@"\Amy collection")] = MyCollection,
                 [new Regex(@"\Achoose [1-9]")] = ChooseDeck,
                 [new Regex(@"\Adeck [1-9]")] = SelectBuildDeck,
                 [new Regex(@"\Aselect [1-8]")] = ConstructCard,
                 [new Regex(@"\Afilter [0-7]")] = FilterByMana,
+                [new Regex(@"\Atoggle (10|[1-9])")] = CardBookTabs,
                 [new Regex(@"\Aopen pack")] = OpenPack,
                 [new Regex(@"\Aflip next")] = FlipNext,
                 [new Regex(@"\Aflip back")] = FlipBack,
@@ -157,11 +157,6 @@ namespace HearthSpeak
         public void Escape(List<string> words)
         {
             InputControl.TypeKeys("{ESC}");
-        }
-
-        public void CancelGame(List<string> words)
-        {
-            InputControl.MouseClick(locator.CancelButton());
         }
 
         public void SelectCasual(List<string> words)
@@ -293,6 +288,11 @@ namespace HearthSpeak
         public void FilterByMana(List<string> words)
         {
             InputControl.MouseClick(locator.ManaButton(Int32.Parse(words[1])));
+        }
+
+        public void CardBookTabs(List<string> words)
+        {
+            InputControl.MouseClick(locator.CardBookTabs(Int32.Parse(words[1])));
         }
 
         public void FlipNext(List<string> words)
