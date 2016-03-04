@@ -203,6 +203,11 @@ namespace HearthSpeak
             return new int[] { 700, 645 };
         }
 
+        public int[] GoldArenaAdmission()
+        {
+            return new int[] { 825, 500 };
+        }
+
         public int[] CardListDragStart()
         {
             return new int[] { 1173, 37 };

@@ -25,7 +25,7 @@ namespace HearthSpeak
             {
                 [new Regex(@"\Aposition")] = GetPosition,
                 [new Regex(@"\Aclick")] = Click,
-                [new Regex(@"\Afinish")] = EndTurn,
+                [new Regex(@"\Aend turn")] = EndTurn,
                 [new Regex(@"\Aplay online")] = PlayGame,
                 [new Regex(@"\Asolo adventures")] = SoloAdventures,
                 [new Regex(@"\Ago back")] = GoBack,
@@ -68,6 +68,7 @@ namespace HearthSpeak
                 [new Regex(@"\Acrafting")] = CraftingButton,
                 [new Regex(@"\Aopen packs")] = OpenPacksButton,
                 [new Regex(@"\Ashop for cards")] = ShopButton,
+                [new Regex(@"\Abuy arena admission")] = BuyArenaAdmission,
 
                 [new Regex(@"\Aremove \d( \d)?")] = RemoveCardInDeckList,
                 [new Regex(@"\Ascroll up")] = ScrollCardListUp,
@@ -390,6 +391,11 @@ namespace HearthSpeak
         public void ShopButton(List<string> words)
         {
             InputControl.MouseClick(locator.ShopButton());
+        }
+
+        public void BuyArenaAdmission(List<string> words)
+        {
+            InputControl.MouseClick(locator.GoldArenaAdmission());
         }
 
         public void RemoveCardInDeckList(List<string> words)
