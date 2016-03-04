@@ -24,8 +24,8 @@ namespace HearthSpeak
             bool logLevel1 = false;
             bool consolePrinting = false;
             var zoneRegex = new Regex(@"\[Zone\]");
-            var logLevelRegex = new Regex(@"LogLevel\=1");
-            var printingRegex = new Regex(@"ConsolePrinting\=true");
+            var logLevelRegex = new Regex(@"LogLevel *\= *1");
+            var printingRegex = new Regex(@"ConsolePrinting *\= *true");
             var otherZoneRegex = new Regex(@"\[");
 
 
@@ -66,6 +66,7 @@ namespace HearthSpeak
                 file.WriteLine("LogLevel=1");
                 file.WriteLine("ConsolePrinting=true");
             }
+            Console.WriteLine("Updating log configuration. Please restart Hearthstone for this change to take effect.\n");
             return "";
         }
 
