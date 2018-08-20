@@ -102,7 +102,11 @@ namespace HearthSpeak
         public void GetPosition(List<string> words)
         {
             var pos = InputControl.CursorPosition();
-            System.Console.WriteLine(pos[0].ToString() + ", " + pos[1].ToString());
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            var x = pos[0] / screenWidth;
+            var y = pos[1] / screenHeight;
+            System.Console.WriteLine(x.ToString() + ", " + y.ToString());
         }
 
         public void Click(List<string> words)

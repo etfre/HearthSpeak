@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,26 +11,36 @@ namespace HearthSpeak
     {
 
         private LogFileParser parser;
-        private int CreatureSep;
+        private double CreatureSep;
+        private double screenWidth;
+        private double screenHeight;
         public Locator(LogFileParser parser)
         {
             this.parser = parser;
-            CreatureSep = 100;
+            this.screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            this.screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            CreatureSep = .0731;
+        }
+
+        private int[] RatioToCoords(double rx, double ry) {
+            int x = (int)(rx * this.screenWidth);
+            int y = (int)(ry * this.screenHeight);
+            return new int[] { x, y };
         }
 
         public int[] EndTurnButton()
         {
-            return new int[] { 1112, 347 };
+            return RatioToCoords( .8129, .4518);
         }
 
         public int[] PlayButton()
         {
-            return new int[] { 660, 240 };
+            return RatioToCoords(.497, .306);
         }
 
         public int[] SoloAdventuresButton()
         {
-            return new int[] { 660, 290 };
+            return RatioToCoords(.4825, .3776);
         }
 
         public int[] BackButton()
@@ -39,93 +50,96 @@ namespace HearthSpeak
 
         public int[] CardInHand(int cardNum)
         {
-            int xpos = -1;
-            int ypos = 721;
+            Console.WriteLine(cardNum);
+            double xpos = -1;
+            double ypos = .93;
             cardNum--;
             switch (parser.FriendlyHandCount)
             {
                 case 1:
-                    xpos = 650;
+                    xpos = .475;
                     break;
                 case 2:
-                    xpos = 650 + cardNum * 100;
+                    xpos = .475 + cardNum * .073;
                     break;
                 case 3:
-                    xpos = 530 + cardNum * 120;
+                    xpos = .387 + cardNum * .088;
                     break;
                 case 4:
-                    xpos = 452 + cardNum * 105;
+                    xpos = .3304 + cardNum * .0768;
                     break;
                 case 5:
-                    xpos = 450 + cardNum * 100;
+                    xpos = .350 + cardNum * .06;
                     break;
                 case 6:
-                    xpos = 435 + cardNum * 75;
+                    xpos = .353 + cardNum * .045;
                     break;
                 case 7:
-                    xpos = 429 + cardNum * 68;
+                    xpos = .314 + cardNum * .05;
                     break;
                 case 8:
-                    xpos = 425 + cardNum * 58;
+                    xpos = .311 + cardNum * .042;
                     break;
                 case 9:
-                    xpos = 420 + cardNum * 50;
+                    xpos = .307 + cardNum * .037;
                     break;
                 case 10:
-                    xpos = 420 + cardNum * 44;
-                    ypos = 740;
+                    xpos = .307 + cardNum * .032;
+                    ypos = .9635;
                     break;
             }
-            return new int[] { xpos, ypos };
+            return RatioToCoords(xpos, ypos);
         }
 
         public int[] FriendlyBoard(int pos)
         {
-            int ypos = 420;
-            return new int[] { CreateXPos(pos, parser.FriendlyPlayCount), ypos };
+            double xpos = CreateXPos(pos, parser.FriendlyPlayCount);
+            double ypos = .546875;
+            return RatioToCoords(xpos, ypos);
         }
 
         public int[] OpposingBoard(int pos)
         {
-            int ypos = 250;
-            return new int[] { CreateXPos(pos, parser.OpposingPlayCount), ypos };
+            double ypos = .3255;
+            double xpos = CreateXPos(pos, parser.OpposingPlayCount);
+            return RatioToCoords(xpos, ypos);
         }
 
-        private int CreateXPos(int pos, int cardCount)
+        private double CreateXPos(int pos, int cardCount)
         {
             pos--;
-            int firstLeft = 693 - 49 * cardCount;
-            int xpos = firstLeft + pos * CreatureSep;
+            double firstLeft = .5066 - .0358 * cardCount;
+            double xpos = firstLeft + pos * CreatureSep;
             return xpos;
         }
 
         public int[] FriendlyPortrait()
         {
-            return new int[] { 690, 585 };
+            return RatioToCoords(.5044, .7017);
         }
 
         public int[] OpposingPortrait()
         {
-            return new int[] { 690, 150 };
+            return RatioToCoords(.5044, .1953);
         }
 
         public int[] HeroPower()
         {
-            return new int[] { 815, 580 };
+            return RatioToCoords(.5958, .7552);
         }
 
         public int[] Mulligan(string word)
         {
-            int ypos = 350;
-            var mulliganPositions = new Dictionary<string, int[]>
+            double ypos = .4557;
+            var mulliganPositions = new Dictionary<string, double[]>
             {
-                ["1"] = new int[] { 450, ypos },
-                ["2"] = new int[] { 630, ypos },
-                ["3"] = new int[] { 850, ypos },
-                ["4"] = new int[] { 965, ypos },
-                ["confirm"] = new int[] { 680, 600 }
-            };
-            return mulliganPositions[word];
+                ["1"] = new double[] { .3289, ypos },
+                ["2"] = new double[] { .4605, ypos },
+                ["3"] = new double[] { .6213, ypos },
+                ["4"] = new double[] { .7054, ypos },
+                ["confirm"] = new double[] { .4971, .78125 }
+            }[word];
+            return RatioToCoords(mulliganPositions[0], mulliganPositions[1]);
         }
 
         public int[] CasualButton()
@@ -145,12 +159,12 @@ namespace HearthSpeak
 
         public int[] ConcedeButton()
         {
-            return new int[] { 684, 281 };
+            return RatioToCoords(.5, .3659);
         }
 
         public int[] BlueButton()
         {
-            return new int[] { 986, 631 };
+            return RatioToCoords(.7028, .8216);
         }
 
         public int[] ConstructCard(int cardNum)
