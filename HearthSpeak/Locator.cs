@@ -45,7 +45,7 @@ namespace HearthSpeak
 
         public int[] BackButton()
         {
-            return new int[] { 1125, 706 };
+            return RatioToCoords(.8224, .9193);
         }
 
         public int[] CardInHand(int cardNum)
@@ -144,17 +144,17 @@ namespace HearthSpeak
 
         public int[] CasualButton()
         {
-            return new int[] { 930, 125 };
+            return RatioToCoords(.6798, .1628);
         }
 
         public int[] RankedButton()
         {
-            return new int[] { 1060, 110 };
+            return RatioToCoords(.7749, .1432);
         }
 
         public int[] QuestLogButton()
         {
-            return new int[] { 380, 667 };
+            return RatioToCoords(.2778, .8685);
         }
 
         public int[] ConcedeButton()
@@ -170,39 +170,40 @@ namespace HearthSpeak
         public int[] ConstructCard(int cardNum)
         {
             cardNum--;
-            int xpos = 250 + (cardNum % 4) * 175;
-            int ypos = cardNum < 4 ? 250 : 500;
-            return new int[] { xpos, ypos };
+            double xpos = .1827 + (cardNum % 4) * .1279;
+            double ypos = cardNum < 4 ? .3255 : .6510;
+            return RatioToCoords(xpos, ypos);
         }
 
         public int[] ManaButton(int cardNum)
         {
-            int xpos = 292 + cardNum * 36;
-            return new int[] { xpos, 700 };
+            double xpos = .2135 + cardNum * .0263;
+            return RatioToCoords(xpos, .9115);
         }
 
         public int[] FlipNext()
         {
-            return new int[] { 900, 385 };
+            return RatioToCoords(.6579, .5013);
         }
 
         public int[] FlipBack()
         {
-            return new int[] { 190, 385 };
+            return RatioToCoords(.1389, .5013);
         }
 
         public int[] CardInDeckList(int cardNum)
         {
             cardNum--;
-            int ypos = 95 + cardNum * 29;
-            return new int[] { 1090, ypos };
+            double ypos = .1237 + cardNum * .0378;
+            return RatioToCoords(.7968, ypos);
         }
 
         public int[] CardInDeckListBottom(int cardNum)
         {
-            cardNum -= 22;
-            int ypos = 425 + cardNum * 29;
-            return new int[] { 1090, ypos };
+            //FIXME: this was a dumb hack that only worked with static positions
+            //cardNum -= 22;
+            double ypos = .5534 + cardNum * .0378;
+            return RatioToCoords(.7968, ypos);
         }
 
 
@@ -214,154 +215,157 @@ namespace HearthSpeak
 
         public int[] GameCancelButton()
         {
-            return new int[] { 700, 645 };
+            return RatioToCoords(.5117, .9074);
         }
 
         public int[] GoldArenaAdmission()
         {
-            return new int[] { 825, 500 };
+            return RatioToCoords(.6031, .6510);
         }
 
         public int[] CardListDragStart()
         {
-            return new int[] { 1173, 37 };
+            return RatioToCoords(.8575, .0482);
         }
 
         public int[] CardListDragEnd()
         {
-            return new int[] { 1173, 657 };
+            return RatioToCoords(.8575, .8555);
         }
 
         public int[] Emote(string words)
         {
-            var emoteMap = new Dictionary<string, int[]>
+            var emoteMap = new Dictionary<string, double[]>
             {
-                ["thank you"] = new int[] { 575, 475 },
-                ["sorry"] = new int[] { 800, 475 },
-                ["well played"] = new int[] { 575, 541 },
-                ["good game"] = new int[] { 575, 541 },
-                ["oops"] = new int[] { 800, 541 },
-                ["greetings"] = new int[] { 575, 611 },
-                ["threaten"] = new int[] { 800, 611 },
+                ["thank you"] = new double[] { .4203, .6185 },
+                ["sorry"] = new double[] { .5848, .6185 },
+                ["well played"] = new double[] { .4203, .7044 },
+                ["good game"] = new double[] { .4203, .7044 },
+                ["oops"] = new double[] { .5848, .7044 },
+                ["greetings"] = new double[] { .4203, .7956 },
+                ["threaten"] = new double[] { .5848, .7956 },
 
             };
-            return emoteMap[words];
+            double[] ratios = emoteMap[words];
+            return RatioToCoords(ratios[0], ratios[1]);
         }
 
         public int[] Deck(int deckNum)
         {
-            var deckMap = new Dictionary<int, int[]>
+            var deckMap = new Dictionary<int, double[]>
             {
-                [1] = new int[] { 350, 215 },
-                [2] = new int[] { 500, 215 },
-                [3] = new int[] { 650, 215 },
-                [4] = new int[] { 350, 380 },
-                [5] = new int[] { 500, 380 },
-                [6] = new int[] { 650, 380 },
-                [7] = new int[] { 350, 540 },
-                [8] = new int[] { 500, 540 },
-                [9] = new int[] { 650, 540 },
+                [1] = new double[] { .2558, .2799 },
+                [2] = new double[] { .3655, .2799 },
+                [3] = new double[] { .4751, .2799 },
+                [4] = new double[] { .2558, .4948 },
+                [5] = new double[] { .3655, .4948 },
+                [6] = new double[] { .4751, .4948 },
+                [7] = new double[] { .2558, .7031 },
+                [8] = new double[] { .3655, .7031 },
+                [9] = new double[] { .4751, .7031 },
 
             };
-            return deckMap[deckNum];
+            double[] ratios = deckMap[deckNum];
+            return RatioToCoords(ratios[0], ratios[1]);
         }
 
         public int[] SelectBuildDeck(int deckNum)
         {
             deckNum--;
-            return new int[] { 1050, 100 + 67 * deckNum };
+            return RatioToCoords(.7675, .1302 + .0872 * deckNum);
         }
 
         public int[] CenterPosition()
         {
-            return new int[] { 685, 358 };
+            return RatioToCoords(.5007, .5013);
         }
         public int[] HidePosition()
         {
-            return new int[] { 0, 767 };
+            return RatioToCoords(0, .5);
         }
 
         public int[] ArenaOpenButton()
         {
-            return new int[] { 675, 345 };
+            return RatioToCoords(.4934, .4492);
         }
 
         public int[] ArenaPlayButton()
         {
-            return new int[] { 780, 600 };
+            return RatioToCoords(.5702, .7813);
         }
 
         public int[] TavernBrawlButton()
         {
-            return new int[] { 690, 395 };
+            return RatioToCoords(.5044, .5143);
         }
 
         public int[] BuyPackButton()
         {
-            return new int[] { 1007, 551 };
+            return RatioToCoords(.7361, .7174);
         }
 
         public int[] CardBookTabs(int tabNum)
         {
             tabNum--;
-            return new int[] { 208 + 50 * tabNum, 28 };
+            return RatioToCoords(.1520 + .0365 * tabNum, .0365);
         }
 
         public int[] ShowOnlyGoldenCards()
         {
-            return new int[] { 1009, 425 };
+            return RatioToCoords(.7376, .5534);
         }
 
         public int[] IncludeUncraftableCards()
         {
-            return new int[] { 1010, 481 };
+            return RatioToCoords(.7383, .6263);
         }
 
         public int[] CraftingButton()
         {
-            return new int[] { 876, 709 };
+            return RatioToCoords(.6404, .9232);
         }
 
         public int[] DisenchantCard()
         {
-            return new int[] { 571, 645 };
+            return RatioToCoords(.4174, .8398);
         }
 
         public int[] CreateCard()
         {
-            return new int[] { 726, 645 };
+            return RatioToCoords(.5307, .8398);
         }
 
         public int[] CancelDisenchant()
         {
-            return new int[] { 763, 458 };
+            return RatioToCoords(.5577, .5964);
         }
 
         public int[] ConfirmDisenchant()
         {
-            return new int[] { 603, 458 };
+            return RatioToCoords(.4408, .5964);
         }
 
         public int[] ShopButton()
         {
-            return new int[] { 247, 673 };
+            return RatioToCoords(.1806, .8763);
         }
 
         public int[] OpenPacksButton()
         {
-            return new int[] { 547, 642 };
+            return RatioToCoords(.4000, .8359);
         }
 
         public int[][] CardPacks()
         {
-            return new int[][] {
-                new int[] { 1061, 270 }, 
-                new int[] { 949, 592 }, 
-                new int[] { 661, 577 },
-                new int[] { 568, 264 },
-                new int[] { 808, 162 },
-                new int[] { 801, 396 },
+            var ratios = new double[][] {
+                new double[] { .7756, .3516 }, 
+                new double[] { .6937, .7708 }, 
+                new double[] { .4832, .7513 },
+                new double[] { .4152, .3438 },
+                new double[] { .5906, .2109 },
+                new double[] { .5855, .5156 },
             };
+            return ratios.Select(coords => new int[] { (int)coords[0], (int)coords[1] }).ToArray();
         }
     }
 }
