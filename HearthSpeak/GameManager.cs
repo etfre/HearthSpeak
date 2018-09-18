@@ -96,6 +96,7 @@ namespace HearthSpeak
 
         public void EndTurn(List<string> words)
         {
+            InputControl.TypeKeys("{ESC}");
             InputControl.MouseClick(locator.EndTurnButton());
         }
 
