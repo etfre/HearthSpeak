@@ -78,10 +78,12 @@ namespace HearthSpeak
                     xpos = .314 + cardNum * .05;
                     break;
                 case 8:
-                    xpos = .311 + cardNum * .042;
+                    xpos = .315 + cardNum * .042;
+                    ypos = .9635;
                     break;
                 case 9:
-                    xpos = .307 + cardNum * .037;
+                    xpos = .312 + cardNum * .037;
+                    ypos = .9630;
                     break;
                 case 10:
                     xpos = .307 + cardNum * .032;
