@@ -25,8 +25,8 @@ namespace HearthSpeak
 
         public void StartWatching()
         {
-            string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            LogDirectory = Path.Combine(localAppData, @"Blizzard\Hearthstone\Logs");
+            string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+            LogDirectory = Path.Combine(localAppData, @"Hearthstone\Logs");
             FriendlyHandCount = 0;
             FriendlyPlayCount = 0;
             OpposingPlayCount = 0;
